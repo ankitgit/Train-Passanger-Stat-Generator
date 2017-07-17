@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * Created by ankit on 17.07.17.
- */
+
 public class Compartment {
     @JsonIgnore
     private ObjectMapper mapper = new ObjectMapper();
