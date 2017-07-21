@@ -4,6 +4,7 @@ import com.devavidity.passanger.stat.generator.models.Compartment;
 import com.devavidity.passanger.stat.generator.utils.ToolRunner;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
@@ -34,18 +35,26 @@ public class Application extends ToolRunner {
         int compartmentCapacity = Integer.parseInt(properties.getProperty(COMPARTMENT_CAPACITY));
         String kafkaTopic = properties.getProperty(KAFKA_TOPIC);
 
-        Producer producer = new KafkaProducer<String, String>(properties);
+        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "kafkaExample");
+
+        Producer<String, String> producer = new KafkaProducer<>(properties);
+
+        Random random = new Random();
 
         while (true) {
             for (int i = 1; i <= numberOfCompartment; i++) {
-                Random random = new Random();
                 int in = random.nextInt(compartmentCapacity);
                 int out = random.nextInt(compartmentCapacity - in);
                 Compartment compartment = new Compartment(vehicleId, i, in, out, compartmentCapacity);
                 String key = vehicleId + "_" + i;
                 String value = compartment.toJson();
-                ProducerRecord record = new ProducerRecord(kafkaTopic, key, value);
+                System.out.println("Sending to topic : " + kafkaTopic);
+                System.out.println("Sending Record : " + value);
+                ProducerRecord<String, String> record = new ProducerRecord<>(kafkaTopic, key, value);
                 producer.send(record);
+
+                System.out.println("Sent successfully !!!");
+                producer.flush();
             }
             try {
                 Thread.sleep(eventGenerationInterval);
