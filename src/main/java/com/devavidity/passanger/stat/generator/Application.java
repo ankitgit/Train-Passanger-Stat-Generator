@@ -17,7 +17,7 @@ public class Application extends ToolRunner {
     public static final String VEHICLE_ID = "vehicle.id";
     public static final String NUMBER_OF_COMPARTMENT = "number.of.compartment";
     public static final String COMPARTMENT_CAPACITY = "compartment.capacity";
-    public static final String KAFKA_TOPIC = "kafka.topic";
+    public static final String KAFKA_TOPIC_OUTPUT = "kafka.out.topic";
 
     public static void main(String[] args) {
         Application application = new Application();
@@ -31,7 +31,7 @@ public class Application extends ToolRunner {
         int vehicleId = Integer.parseInt(properties.getProperty(VEHICLE_ID));
         int numberOfCompartment = Integer.parseInt(properties.getProperty(NUMBER_OF_COMPARTMENT));
         int compartmentCapacity = Integer.parseInt(properties.getProperty(COMPARTMENT_CAPACITY));
-        String kafkaTopic = properties.getProperty(KAFKA_TOPIC);
+        String kafkaTopic = properties.getProperty(KAFKA_TOPIC_OUTPUT);
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
         Random random = new Random();

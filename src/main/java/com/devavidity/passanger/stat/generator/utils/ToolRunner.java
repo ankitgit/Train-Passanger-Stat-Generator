@@ -12,6 +12,7 @@ public abstract class ToolRunner {
     public static final String EMPTY_VALUE = "EMPTY";
     private final String MANDATORY_PROP_ARGUMENT = "P";
     private final String BOOT_STRAP_ARGUMENT = "B";
+    private final String OUT_TOPIC = "OT";
     private final String VEHICLE_ID = "V";
     private final String NUMBER_OF_COMPARTMENT = "NC";
     private final String COMPARTMENT_CAPACITY = "CC";
@@ -25,6 +26,7 @@ public abstract class ToolRunner {
             Options runTimeOptions = new Options();
             runTimeOptions.addRequiredOption(MANDATORY_PROP_ARGUMENT, "PropertyFile", true, "Location of the property file");
             runTimeOptions.addOption(BOOT_STRAP_ARGUMENT, true, "Boot Strap Server");
+            runTimeOptions.addOption(OUT_TOPIC, true, "Output kafka topic");
             runTimeOptions.addOption(VEHICLE_ID, true, "Vehicle Id");
             runTimeOptions.addOption(NUMBER_OF_COMPARTMENT, true, "Number Of compartment ");
             runTimeOptions.addOption(COMPARTMENT_CAPACITY, true, "Compartment capacity");
@@ -41,6 +43,9 @@ public abstract class ToolRunner {
                     switch (option.getOpt()) {
                         case BOOT_STRAP_ARGUMENT:
                             properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, option.getValue());
+                            break;
+                        case OUT_TOPIC:
+                            properties.put(Application.KAFKA_TOPIC_OUTPUT, option.getValue());
                             break;
                         case VEHICLE_ID:
                             properties.put(Application.VEHICLE_ID, option.getValue());
