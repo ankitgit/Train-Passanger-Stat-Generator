@@ -43,7 +43,6 @@ public class Application extends ToolRunner {
                 Compartment compartment = new Compartment(vehicleId, i, in, out, compartmentCapacity);
                 String key = vehicleId + "_" + i;
                 String value = compartment.toJson();
-                System.out.println("Sending to topic : " + kafkaTopic);
                 System.out.println("Sending Record : " + value);
                 ProducerRecord<String, String> record = new ProducerRecord<>(kafkaTopic, key, value);
                 producer.send(record);

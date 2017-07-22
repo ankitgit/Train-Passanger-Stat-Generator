@@ -61,7 +61,6 @@ public abstract class ToolRunner {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 
     protected Properties getProperties() {
