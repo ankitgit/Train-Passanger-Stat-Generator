@@ -15,6 +15,8 @@ public abstract class ToolRunner {
     private final String VEHICLE_ID = "V";
     private final String NUMBER_OF_COMPARTMENT = "NC";
     private final String COMPARTMENT_CAPACITY = "CC";
+    private final String EVENT_GENERATION_INTERVAL_MS = "I";
+
 
     public static Properties properties = new Properties();
 
@@ -26,6 +28,7 @@ public abstract class ToolRunner {
             runTimeOptions.addOption(VEHICLE_ID, true, "Vehicle Id");
             runTimeOptions.addOption(NUMBER_OF_COMPARTMENT, true, "Number Of compartment ");
             runTimeOptions.addOption(COMPARTMENT_CAPACITY, true, "Compartment capacity");
+            runTimeOptions.addOption(EVENT_GENERATION_INTERVAL_MS, true, "Event generation interval");
             CommandLineParser cliParser = new DefaultParser();
             CommandLine parse = cliParser.parse(runTimeOptions, args);
             Option[] options = parse.getOptions();
@@ -47,6 +50,9 @@ public abstract class ToolRunner {
                             break;
                         case COMPARTMENT_CAPACITY:
                             properties.put(Application.COMPARTMENT_CAPACITY, option.getValue());
+                            break;
+                        case EVENT_GENERATION_INTERVAL_MS:
+                            properties.put(Application.EVENT_GENERATION_INTERVAL_MS, option.getValue());
                             break;
                     }
                 }
