@@ -13,11 +13,11 @@ import java.util.concurrent.ExecutionException;
  */
 public class Application extends ToolRunner {
 
-    private final String EVENT_GENERATION_INTERVAL_MS = "event.generation.interval.ms";
-    private final String VEHICLE_ID = "vehicle.id";
-    private final String NUMBER_OF_COMPARTMENT = "number.of.compartment";
-    private final String COMPARTMENT_CAPACITY = "compartment.capacity";
-    private final String KAFKA_TOPIC = "kafka.topic";
+    public static final String EVENT_GENERATION_INTERVAL_MS = "event.generation.interval.ms";
+    public static final String VEHICLE_ID = "vehicle.id";
+    public static final String NUMBER_OF_COMPARTMENT = "number.of.compartment";
+    public static final String COMPARTMENT_CAPACITY = "compartment.capacity";
+    public static final String KAFKA_TOPIC = "kafka.topic";
 
     public static void main(String[] args) {
         Application application = new Application();
