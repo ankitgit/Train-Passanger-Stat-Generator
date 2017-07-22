@@ -2,13 +2,11 @@ package com.devavidity.passanger.stat.generator;
 
 import com.devavidity.passanger.stat.generator.models.Compartment;
 import com.devavidity.passanger.stat.generator.utils.ToolRunner;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by ankit on 17.07.17.
@@ -35,10 +33,7 @@ public class Application extends ToolRunner {
         int compartmentCapacity = Integer.parseInt(properties.getProperty(COMPARTMENT_CAPACITY));
         String kafkaTopic = properties.getProperty(KAFKA_TOPIC);
 
-        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "kafkaExample");
-
         Producer<String, String> producer = new KafkaProducer<>(properties);
-
         Random random = new Random();
 
         while (true) {
@@ -52,14 +47,13 @@ public class Application extends ToolRunner {
                 System.out.println("Sending Record : " + value);
                 ProducerRecord<String, String> record = new ProducerRecord<>(kafkaTopic, key, value);
                 producer.send(record);
-
                 System.out.println("Sent successfully !!!");
-                producer.flush();
             }
             try {
                 Thread.sleep(eventGenerationInterval);
             } catch (InterruptedException e) {
                 System.err.println("Woopsss !!!! Bye Bye. " + e.getMessage());
+                producer.close();
                 return;
             }
         }

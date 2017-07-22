@@ -1,9 +1,11 @@
 package com.devavidity.passanger.stat.generator.utils;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 public abstract class ToolRunner {
@@ -29,7 +31,7 @@ public abstract class ToolRunner {
 
             run();
 
-        } catch (ParseException | IOException e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
